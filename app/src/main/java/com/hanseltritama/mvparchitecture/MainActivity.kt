@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.hanseltritama.mvparchitecture.Presenter.LoginPresenter
 import com.hanseltritama.mvparchitecture.View.ILoginView
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), ILoginView {
@@ -24,6 +25,10 @@ class MainActivity : AppCompatActivity(), ILoginView {
     }
 
     override fun onLoginResult(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        Toasty.success(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onLoginError(message: String) {
+        Toasty.error(this, message, Toast.LENGTH_SHORT).show()
     }
 }

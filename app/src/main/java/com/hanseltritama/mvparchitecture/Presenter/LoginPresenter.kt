@@ -10,12 +10,21 @@ class LoginPresenter(iLoginView: ILoginView) : ILoginPresenter {
     override fun onLogin(email: String, password: String) {
         // get User from Model
         val user = User(email, password)
-        val isLoginSuccess: Boolean = user.isValidData()
+        val loginCode: Int = user.isValidData()
 
-        if (isLoginSuccess) {
-            loginView.onLoginResult("Login Success!")
-        } else {
-            loginView.onLoginResult("Login Error!")
+        when (loginCode) {
+            0 -> {
+                loginView.onLoginError("You must enter you email!")
+            }
+            1 -> {
+                loginView.onLoginError("You must enter valid email!")
+            }
+            2 -> {
+                loginView.onLoginError("Password length must be greater than 6")
+            }
+            else -> {
+                loginView.onLoginResult("Login Success")
+            }
         }
     }
 
